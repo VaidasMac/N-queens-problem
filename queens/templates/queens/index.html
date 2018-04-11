@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queens</title>
+    <style>
+
+tr:nth-child(even) td:nth-child(even), tr:nth-child(odd) td:nth-child(odd) {
+  background: grey;
+}
+tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
+  background: white;
+}
+table.print-friendly tr td, table.print-friendly tr th {
+        page-break-inside: avoid;
+}
+
+.cols{
+    -webkit-column-width: 400px;
+      -moz-column-width: 400px;
+           column-width: 400px;
+}
+.shade {
+    width: 300px;
+    height: 100px;
+    padding: 2px;
+    box-shadow: 10px 10px 5px grey;
+}
+</style>
+</head>
+<body>
+<div style="text-align: center">
+<h1 > Karalienių problema </h1>
+<div>
+    <form method="post">{% csrf_token %}
+    <label>Lentos plotis ir ilgis </label>
+    {{ form.post }}
+    <button type="submit">Ieškoti sprendimų</button>
+
+        </form>
+</div>
+
+
+<h2> Sprendimų skaičius : {{ sol_count }}</h2>
+</div>
+<div class="cols">
+{% for sol in solutions %}
+    <div>
+
+<table border="2px" class="shade print-friendly">
+ <caption>Sprendimas Nr: {{ forloop.counter }}</caption>
+    {% for row in sol %}
+
+<tr>
+        {% for col in row %}
+            {% if col == 1 %}
+                <td style=" font-size: 250%; text-align: center;" class="up" >&#9813</td>
+            {% endif %}
+            {% if col != 1 %}
+            <td height="50px" width="50px">  </td>
+            {% endif %}
+        {% endfor %}
+</tr>
+
+
+         {% if forloop.counter == size  %}
+
+    {% endif %}
+
+    {% endfor %}
+    </table>
+    </div>
+    <br>
+{% endfor %}
+
+</div>
+</body>
+</html>
